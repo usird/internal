@@ -41,7 +41,7 @@
         margin-bottom: 20px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        box-sizing: border-box; /* Ensures padding doesn't affect overall width */
+        box-sizing: border-box;
     }
 
     button {
@@ -87,7 +87,7 @@
         text-align: center;
         padding-top: 20px;
     }
-    
+
     .form-section {
         margin-bottom: 20px;
     }
@@ -99,46 +99,42 @@
    /* Container holding the tabs */
     .tab {
         overflow: hidden;
-        background-color: #4b4b4b; /* Light grey background */
-        border-radius: 4px; /* Rounded corners for the tab container */
-        margin-bottom: 20px; /* Space between tabs and content */
+        background-color: #4b4b4b; 
+        border-radius: 4px; 
+        margin-bottom: 20px;
     }
 
-    /* Style the buttons inside the tab */
     .tab button {
-        background-color: inherit; /* Matches the tab container color */
+        background-color: inherit;
         float: left;
         border: none;
         outline: none;
         cursor: pointer;
-        padding: 14px 20px; /* Slightly larger padding for a touch-friendly design */
-        transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover and active states */
-        border-radius: 4px; /* Rounded corners for each tab button */
-        margin: 4px; /* Small space between buttons */
-        font-size: 16px; /* Clear, readable font size */
+        padding: 14px 20px;
+        transition: background-color 0.3s, color 0.3s;
+        border-radius: 4px;
+        margin: 4px; 
+        font-size: 16px; 
     }
 
-    /* Change background color and text color of buttons on hover */
     .tab button:hover {
-        background-color: #ddd; /* Lighter grey on hover */
-        color: #555; /* Darker text color for contrast */
+        background-color: #ddd;
+        color: #555;
     }
 
-    /* Style for the active tab */
     .tab button.active {
-        background-color: #fff; /* White background for the active tab */
-        color: #000; /* Black text color for high contrast */
-        border-bottom: 2px solid #007bff; /* Blue bottom border indicating active state */
+        background-color: #fff;
+        color: #000;
+        border-bottom: 2px solid #007bff;
     }
 
-    /* Style for the tab content */
     .tabcontent {
         display: none;
         padding: 20px;
-        border: 1px solid #ddd; /* Light grey border matching the hover state */
-        border-top: none; /* Removes top border for a seamless look */
-        background-color: #fff; /* White background for content */
-        border-radius: 0 0 4px 4px; /* Rounded corners for the bottom of the content box */
+        border: 1px solid #ddd; 
+        border-top: none;
+        background-color: #fff; 
+        border-radius: 0 0 4px 4px;
     }
 
 </style>
@@ -153,7 +149,6 @@
         <button class="tablinks" onclick="openTab(event, 'education')">Education</button>
         <button class="tablinks" onclick="openTab(event, 'employment')">Employment</button>
         <button class="tablinks" onclick="openTab(event, 'family')">Family</button>
-        <!-- Add more tabs as needed -->
     </div>
     
     <form action="/submit-your-form-handler" method="post">
@@ -339,7 +334,7 @@
         </div>
 
         <div class="submitContainer">
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" onclick="downloadData()"/>
         </div>
 
     </form>
@@ -571,6 +566,21 @@
         const siblingDiv = document.getElementById(siblingId);
         siblingDiv.parentNode.removeChild(siblingDiv);
         siblingCount --;
+    }
+
+    function downloadData() {
+
+        
+
+        const data = { name: document.getElementById('name').value, email: document.getElementById('email').value };
+        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'formData.json';
+        document.body.appendChild(link); // Append link to the body
+        link.click(); // Simulate click on the link
+        document.body.removeChild(link); // Remove link from the body
     }
 
     document.getElementsByClassName("tablinks")[0].classList.add("active");
