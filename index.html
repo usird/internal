@@ -1,11 +1,581 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<title>Information Form</title>
+<style>
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #fff;
+        margin: 0;
+        padding: 40px;
+        color: #333;
+    }
+
+    form {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+        border-radius: 8px;
+        background: #f9f9f9;
+    }
+
+    h2, h3 {
+        color: #000;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #333;
+        font-size: 16px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box; /* Ensures padding doesn't affect overall width */
+    }
+
+    button {
+        background-color: #000;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #333;
+    }
+
+    /* Style for the submit button */
+
+    .submitContainer {
+        display: flex;
+        justify-content: end;
+    }
+
+    input[type="submit"] {
+        background-color: #000; 
+        color: #fff; 
+        margin: 30px;
+        padding: 15px 45px;
+        border: none; 
+        border-radius: 4px; 
+        cursor: pointer; 
+        font-size: 16px; 
+        transition: background-color 0.3s ease; 
+    }
+
+    input[type="submit"]:hover {
+        background-color: #333;
+    }
+
+    /* Optional: Additional styling to ensure the submit button stands out */
+    .form-footer {
+        text-align: center;
+        padding-top: 20px;
+    }
+    
+    .form-section {
+        margin-bottom: 20px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+   /* Container holding the tabs */
+    .tab {
+        overflow: hidden;
+        background-color: #4b4b4b; /* Light grey background */
+        border-radius: 4px; /* Rounded corners for the tab container */
+        margin-bottom: 20px; /* Space between tabs and content */
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit; /* Matches the tab container color */
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 20px; /* Slightly larger padding for a touch-friendly design */
+        transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover and active states */
+        border-radius: 4px; /* Rounded corners for each tab button */
+        margin: 4px; /* Small space between buttons */
+        font-size: 16px; /* Clear, readable font size */
+    }
+
+    /* Change background color and text color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd; /* Lighter grey on hover */
+        color: #555; /* Darker text color for contrast */
+    }
+
+    /* Style for the active tab */
+    .tab button.active {
+        background-color: #fff; /* White background for the active tab */
+        color: #000; /* Black text color for high contrast */
+        border-bottom: 2px solid #007bff; /* Blue bottom border indicating active state */
+    }
+
+    /* Style for the tab content */
+    .tabcontent {
+        display: none;
+        padding: 20px;
+        border: 1px solid #ddd; /* Light grey border matching the hover state */
+        border-top: none; /* Removes top border for a seamless look */
+        background-color: #fff; /* White background for content */
+        border-radius: 0 0 4px 4px; /* Rounded corners for the bottom of the content box */
+    }
+
+</style>
 </head>
 <body>
-    hello mommy daddy
+    
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'basicInformation')">Basic Information</button>
+        <button class="tablinks" onclick="openTab(event, 'spouse')">Spouse</button>
+        <button class="tablinks" onclick="openTab(event, 'children')">Children</button>
+        <button class="tablinks" onclick="openTab(event, 'address')">Address</button>
+        <button class="tablinks" onclick="openTab(event, 'education')">Education</button>
+        <button class="tablinks" onclick="openTab(event, 'employment')">Employment</button>
+        <button class="tablinks" onclick="openTab(event, 'family')">Family</button>
+        <!-- Add more tabs as needed -->
+    </div>
+    
+    <form action="/submit-your-form-handler" method="post">
+
+        <div id="basicInformation" class="tabcontent active">
+            <h2>Basic Information</h2>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br>
+            
+            <label for="other_names">Other Names:</label>
+            <input type="text" id="other_names" name="other_names"><br>
+            
+            <label for="current_address">Current Address:</label>
+            <input type="text" id="current_address" name="current_address" required><br>
+            
+            <label for="zip_code">Zip Code:</label>
+            <input type="text" id="zip_code" name="zip_code" required><br>
+            
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select><br>
+            
+            <label for="marital">Marital Status:</label>
+            <select id="marital" name="marital" required>
+                <option value="">Please select</option>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="divorced">Divorced</option>
+                <option value="widowed">Widowed</option>
+            </select><br>
+
+            <label for="has_children">Do you have children?</label>
+            <select id="has_children" name="has_children" required>
+                <option value="no">No</option>
+                <option value="yes">Yes</option>
+            </select><br>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob"><br>
+
+            <label for="cityOfBirth">City of Birth:</label>
+            <input type="text" id="cityOfBirth" name="cityOfBirth"><br>
+
+            <label for="countryOfBirth">Country of Birth:</label>
+            <input type="text" id="countryOfBirth" name="countryOfBirth"><br>
+
+            <label for="nationality">Nationality:</label>
+            <input type="text" id="nationality" name="nationality"><br>
+
+            <label for="race">Race:</label>
+            <input type="text" id="race" name="race"><br>
+
+            <label for="religion">Religion:</label>
+            <input type="text" id="religion" name="religion"><br>
+
+            <label for="lastLeaveCountry">Last Leave Country:</label>
+            <input type="text" id="lastLeaveCountry" name="lastLeaveCountry"><br>
+
+            <label for="i94">I94:</label>
+            <input type="text" id="i94" name="i94"><br>
+
+            <label for="dateOfEntry">Date of Entry:</label>
+            <input type="date" id="dateOfEntry" name="dateOfEntry"><br>
+
+            <label for="placeOfEntry">Place of Entry:</label>
+            <input type="text" id="placeOfEntry" name="placeOfEntry"><br>
+
+            <label for="statusWhenAdmitted">Status When Admitted:</label>
+            <input type="text" id="statusWhenAdmitted" name="statusWhenAdmitted"><br>
+
+            <label for="dateStatusExpires">Date Status Expires:</label>
+            <input type="date" id="dateStatusExpires" name="dateStatusExpires"><br>
+
+            <label for="passport">Passport:</label>
+            <input type="text" id="passport" name="passport"><br>
+
+            <label for="countryIssuingPassport">Country Issuing Passport:</label>
+            <input type="text" id="countryIssuingPassport" name="countryIssuingPassport"><br>
+
+            <label for="passportExpirationDate">Passport Expiration Date:</label>
+            <input type="date" id="passportExpirationDate" name="passportExpirationDate"><br>
+        </div>
+
+        <div id="spouse" class="tabcontent">
+            <div id="spouseSection">
+                <h2>Spouse Information</h2>
+                
+                <label for="spouse_name">Spouse Name:</label>
+                <input type="text" id="spouse_name" name="spouse_name"><br>
+                
+                <label for="date_of_marriage">Date of Marriage:</label>
+                <input type="date" id="date_of_marriage" name="date_of_marriage"><br>
+                
+                <label for="place_of_marriage">Place of Marriage:</label>
+                <input type="text" id="place_of_marriage" name="place_of_marriage"><br>
+                
+                <label for="spouse_city_birth">City of Birth, Country:</label>
+                <input type="text" id="spouse_city_birth" name="spouse_city_birth"><br>
+                
+                <label for="spouse_nationality">Nationality:</label>
+                <input type="text" id="spouse_nationality" name="spouse_nationality"><br>
+                
+                <label for="spouse_race">Race:</label>
+                <input type="text" id="spouse_race" name="spouse_race"><br>
+                
+                <label for="spouse_religion">Religion:</label>
+                <input type="text" id="spouse_religion" name="spouse_religion"><br>
+                
+                <!-- Additional fields as needed -->
+            </div>
+        </div>
+
+        <div id="children" class="tabcontent">
+            <button type="button" onclick="addChildFields()">Add Child</button>
+            <div id="childrenContainer">
+                <!-- Child fields will be added here -->
+            </div>
+        </div>
+
+        <div id="address" class="tabcontent">
+            <h2>Address List</h2>
+            <button type="button" onclick="addAddressFields()">Add Address</button>
+            <div id="addressesContainer">
+                <!-- Address fields will be added here -->
+            </div>
+        </div>
+
+        <div id="education" class="tabcontent">
+            <h2>Education List</h2>
+            <button type="button" onclick="addEducationFields()">Add Education</button>
+            <div id="educationContainer">
+                <!-- Education fields will be added here -->
+            </div>
+        </div>
+        
+        <div id="employment" class="tabcontent">
+            <h2>Employment List</h2>
+            <button type="button" onclick="addEmploymentFields()">Add Employment</button>
+            <div id="employmentContainer">
+                <!-- Employment fields will be added here -->
+            </div>
+        </div>
+
+        <div id="family" class="tabcontent">
+            <h2>Family Information</h2>
+    
+            <h3>Mother</h3>
+            <label for="mother_name">Name:</label>
+            <input type="text" id="mother_name" name="mother_name"><br>
+            
+            <label for="mother_birth_city">City of Birth:</label>
+            <input type="text" id="mother_birth_city" name="mother_birth_city"><br>
+            
+            <label for="mother_current_location">Current Location:</label>
+            <input type="text" id="mother_current_location" name="mother_current_location"><br>
+            
+            <label for="mother_zip_code">Zip Code:</label>
+            <input type="text" id="mother_zip_code" name="mother_zip_code"><br>
+            
+            <h3>Father</h3>
+            <label for="father_name">Name:</label>
+            <input type="text" id="father_name" name="father_name"><br>
+            
+            <label for="father_birth_city">City of Birth:</label>
+            <input type="text" id="father_birth_city" name="father_birth_city"><br>
+            
+            <label for="father_current_location">Current Location:</label>
+            <input type="text" id="father_current_location" name="father_current_location"><br>
+            
+            <label for="father_zip_code">Zip Code:</label>
+            <input type="text" id="father_zip_code" name="father_zip_code"><br>
+            
+            <h3>Siblings</h3>
+            <!-- For a single sibling entry. Use JavaScript to add more -->
+            <button type="button" onclick="addSiblingFields()">Add Sibling</button>
+            <div id="siblingsContainer">
+                <!-- Sibling fields will be added here -->
+            </div>
+        </div>
+
+        <div class="submitContainer">
+            <input type="submit" value="Submit">
+        </div>
+
+    </form>
+
+<script>
+
+    let childCount = 0;
+
+    function addChildFields() {
+        childCount++;
+
+        const container = document.getElementById('childrenContainer');
+        const childDiv = document.createElement('div');
+        childDiv.setAttribute('id', `child${childCount}`);
+        childDiv.innerHTML = `
+            <h3>Child #${childCount}</h3>
+
+            <button type="button" onclick="removeChildFields('child${childCount}')">Remove</button>
+
+            <label for="child_name${childCount}">Child Name:</label>
+            <input type="text" id="child_name${childCount}" name="child_name[]"><br>
+            
+            <label for="child_dob${childCount}">Date of Birth:</label>
+            <input type="date" id="child_dob${childCount}" name="child_dob[]"><br>
+            
+            <label for="child_birth_city_country${childCount}">City of Birth, Country:</label>
+            <input type="text" id="child_birth_city_country${childCount}" name="child_birth_city_country[]"><br>
+            
+            <label for="child_nationality${childCount}">Nationality:</label>
+            <input type="text" id="child_nationality${childCount}" name="child_nationality[]"><br>
+            
+            <label for="child_race${childCount}">Race:</label>
+            <input type="text" id="child_race${childCount}" name="child_race[]"><br>
+            
+            <label for="child_religion${childCount}">Religion:</label>
+            <input type="text" id="child_religion${childCount}" name="child_religion[]"><br>
+            
+            <label for="child_last_leave_country${childCount}">Last Leave Country:</label>
+            <input type="text" id="child_last_leave_country${childCount}" name="child_last_leave_country[]"><br>
+            
+            <label for="child_i94${childCount}">I94:</label>
+            <input type="text" id="child_i94${childCount}" name="child_i94[]"><br>
+            
+            <label for="child_status${childCount}">Status:</label>
+            <input type="text" id="child_status${childCount}" name="child_status[]"><br>
+            
+            <label for="child_date_status_expires${childCount}">Date Status Expires:</label>
+            <input type="date" id="child_date_status_expires${childCount}" name="child_date_status_expires[]"><br>
+        `;
+        container.appendChild(childDiv);
+    }
+
+    let addressCount = 0;
+
+    function addAddressFields() {
+        addressCount++;
+
+        const container = document.getElementById('addressesContainer');
+        const addressDiv = document.createElement('div');
+        addressDiv.setAttribute('id', `address${addressCount}`);
+        addressDiv.innerHTML = `
+            <h3>Address #${addressCount}</h3>
+
+            <button type="button" onclick="removeAddressFields('address${addressCount}')">Remove</button>
+
+            <label for="address_line${addressCount}">Address Line:</label>
+            <input type="text" id="address_line${addressCount}" name="address_line[]"><br>
+            
+            <label for="city${addressCount}">City:</label>
+            <input type="text" id="city${addressCount}" name="city[]"><br>
+            
+            <label for="country${addressCount}">Country:</label>
+            <input type="text" id="country${addressCount}" name="country[]"><br>
+            
+            <label for="zip_code${addressCount}">Zip Code:</label>
+            <input type="text" id="zip_code${addressCount}" name="zip_code[]"><br>
+            
+            <label for="from_date${addressCount}">From:</label>
+            <input type="date" id="from_date${addressCount}" name="from_date[]"><br>
+            
+            <label for="to_date${addressCount}">To:</label>
+            <input type="date" id="to_date${addressCount}" name="to_date[]"><br>
+        `;
+        container.appendChild(addressDiv);
+    }
+
+    let educationCount = 0;
+
+    function addEducationFields() {
+        educationCount++;
+
+        const container = document.getElementById('educationContainer');
+        const educationDiv = document.createElement('div');
+        educationDiv.setAttribute('id', `education${educationCount}`);
+        educationDiv.innerHTML = `
+            <h3>Education #${educationCount}</h3>
+
+            <button type="button" onclick="removeEducationFields('education${educationCount}')">Remove</button>
+
+            <label for="institution_name${educationCount}">Name:</label>
+            <input type="text" id="institution_name${educationCount}" name="institution_name[]"><br>
+            
+            <label for="institution_type${educationCount}">Type (e.g., High School, University):</label>
+            <input type="text" id="institution_type${educationCount}" name="institution_type[]"><br>
+            
+            <label for="institution_location${educationCount}">Location:</label>
+            <input type="text" id="institution_location${educationCount}" name="institution_location[]"><br>
+            
+            <label for="institution_zip_code${educationCount}">Zip Code:</label>
+            <input type="text" id="institution_zip_code${educationCount}" name="institution_zip_code[]"><br>
+            
+            <label for="education_from_date${educationCount}">From:</label>
+            <input type="date" id="education_from_date${educationCount}" name="education_from_date[]"><br>
+            
+            <label for="education_to_date${educationCount}">To:</label>
+            <input type="date" id="education_to_date${educationCount}" name="education_to_date[]"><br>
+        `;
+        container.appendChild(educationDiv);
+    }
+
+    let employmentCount = 0;
+
+    function addEmploymentFields() {
+        employmentCount++;
+
+        const container = document.getElementById('employmentContainer');
+        const employmentDiv = document.createElement('div');
+        employmentDiv.setAttribute('id', `employment${employmentCount}`);
+        employmentDiv.innerHTML = `
+            <h3>Employment #${employmentCount}</h3>
+
+            <button type="button" onclick="removeEmploymentFields('employment${employmentCount}')">Remove</button>
+
+            <label for="employer_name${employmentCount}">Employer Name:</label>
+            <input type="text" id="employer_name${employmentCount}" name="employer_name[]"><br>
+            
+            <label for="occupation${employmentCount}">Occupation:</label>
+            <input type="text" id="occupation${employmentCount}" name="occupation[]"><br>
+            
+            <label for="employer_address${employmentCount}">Address:</label>
+            <input type="text" id="employer_address${employmentCount}" name="employer_address[]"><br>
+            
+            <label for="employer_zip_code${employmentCount}">Zip Code:</label>
+            <input type="text" id="employer_zip_code${employmentCount}" name="employer_zip_code[]"><br>
+            
+            <label for="employment_from_date${employmentCount}">From:</label>
+            <input type="date" id="employment_from_date${employmentCount}" name="employment_from_date[]"><br>
+            
+            <label for="employment_to_date${employmentCount}">To:</label>
+            <input type="date" id="employment_to_date${employmentCount}" name="employment_to_date[]"><br>
+        `;
+        container.appendChild(employmentDiv);
+    }
+
+    let siblingCount = 0;
+
+    function addSiblingFields() {
+        siblingCount++;
+
+        const container = document.getElementById('siblingsContainer');
+        const siblingDiv = document.createElement('div');
+        siblingDiv.setAttribute('id', `sibling${siblingCount}`);
+        siblingDiv.innerHTML = `
+            <h3>Sibling #${siblingCount}</h3>
+
+            <button type="button" onclick="removeSiblingFields('sibling${siblingCount}')">Remove</button>
+
+            <label for="sibling_name${siblingCount}">Name:</label>
+            <input type="text" id="sibling_name${siblingCount}" name="sibling_name[]"><br>
+            
+            <label for="sibling_birth_city${siblingCount}">City of Birth:</label>
+            <input type="text" id="sibling_birth_city${siblingCount}" name="sibling_birth_city[]"><br>
+            
+            <label for="sibling_current_location${siblingCount}">Current Location:</label>
+            <input type="text" id="sibling_current_location${siblingCount}" name="sibling_current_location[]"><br>
+            
+            <label for="sibling_zip_code${siblingCount}">Zip Code:</label>
+            <input type="text" id="sibling_zip_code${siblingCount}" name="sibling_zip_code[]"><br>
+        `;
+        container.appendChild(siblingDiv);
+    }
+
+    function openTab(evt, tabName) {
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    function removeChildFields(childId) {
+        const childDiv = document.getElementById(childId);
+        childDiv.parentNode.removeChild(childDiv);
+        childCount --;
+    }
+
+    function removeAddressFields(addressId) {
+        const addressDiv = document.getElementById(addressId);
+        addressDiv.parentNode.removeChild(addressDiv);
+        addressCount --;
+    }
+
+    function removeEducationFields(educationId) {
+        const educationDiv = document.getElementById(educationId);
+        educationDiv.parentNode.removeChild(educationDiv);
+        educationCount --;
+    }
+
+    function removeEmploymentFields(employmentId) {
+        const employmentDiv = document.getElementById(employmentId);
+        employmentDiv.parentNode.removeChild(employmentDiv);
+        employmentCount --;
+    }
+
+    function removeSiblingFields(siblingId) {
+        const siblingDiv = document.getElementById(siblingId);
+        siblingDiv.parentNode.removeChild(siblingDiv);
+        siblingCount --;
+    }
+
+    document.getElementsByClassName("tablinks")[0].classList.add("active");
+    document.getElementsByClassName("tabcontent")[0].style.display="block";
+</script>
+
 </body>
 </html>
